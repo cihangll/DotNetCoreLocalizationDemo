@@ -1,0 +1,50 @@
+﻿@page
+@using Microsoft.AspNetCore.Localization
+@model IndexModel
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IStringLocalizer<IndexModel> localizer
+@inject IHtmlLocalizer<IndexModel> htmlLocalizer
+
+@{
+	var requestedCultureFeature = HttpContext.Features.Get<IRequestCultureFeature>();
+	var requestCulture = requestedCultureFeature.RequestCulture;
+
+	ViewData["Title"] = localizer["Title"];
+}
+
+<div class="text-center">
+	<h1 class="display-4">@localizer["Welcome"]</h1>
+	<p>@htmlLocalizer["Learn"]</p>
+
+	<table class="table">
+		<tr>
+			<td style="width:50%;">Culture</td>
+			<td>@requestCulture.Culture.DisplayName {@requestCulture.Culture.Name}</td>
+		</tr>
+		<tr>
+			<td>UI Culture</td>
+			<td>@requestCulture.UICulture.Name</td>
+		</tr>
+		<tr>
+			<td>UICulture Parent</td>
+			<td>@requestCulture.UICulture.Parent</td>
+		</tr>
+		<tr>
+			<td>Date</td>
+			<td>@DateTime.Now.ToLongDateString()</td>
+		</tr>
+		<tr>
+			<td>Currency</td>
+			<td>
+				@(12345.00.ToString("c"))
+			</td>
+		</tr>
+		<tr>
+			<td>Number</td>
+			<td>
+				@(123.45m.ToString("F2"))
+			</td>
+		</tr>
+	</table>
+</div>
